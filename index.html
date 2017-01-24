@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html>
+
+  <head>
+    <meta charset="utf-8" />
+    <link rel="stylesheet" type="text/css" href="style.css" />
+    <script src="https://d3js.org/d3.v3.min.js"></script>
+    <script src="barry.js"></script>
+  </head>
+
+  <body>
+    <input id="firstWordInput" placeholder="Javascript" />
+    <input id="secondWordInput" placeholder="is ok I guess" />
+    <button onclick="generateAndVisualize()">Generate frequency chart!</button>
+    <input type="reset" value="Reset" onclick="reloadPage()">
+    <div id="chartContainer"></div>
+    <script>
+    var givenData = new Array();
+    function reloadPage() {
+      location.reload();
+    }
+    function generateAndVisualize() {
+    // Put your code here!
+    //
+    // Take text input from firstWordInput and secondWordInput,
+    // and get the intersection frequency between the two strings!
+    //
+    // Find only the letters shared between both strings, and how many
+    // times total each of those letters appeared.
+    //
+    // You'll use this as an input to our visualization!
+    //
+    // For example, the intersection between "Javascript" and "is okay I guess"
+    // is the letter "a" 3 times, 4 "s" characters, and 2 "i" characters. Note
+    // that the letter "I" didn't occur in both strings, so it isn't included.
+    //
+    // Another example, the intersection between "Julie Andrews" and "Mary Poppins"
+    // includes the letter "i" 2 times, 2 " " characters, 2 "n" characters,
+    // 2 "r" characters", and 2 "s" characters.
+    //
+    // For the first example, input to our visualization would look like:
+    // [{letter: "a", frequency: 4},
+    // {letter: "s", frequency: 3},
+    // {letter: "i", frequency: 2}]
+    //
+    // Oh, yeah - and I don't like the way this chart is styled.
+    // can you give the bars better fill and  hover colors?
+    //
+    // Have fun!
+    // Justin
+
+    var firstInput = document.getElementById("firstWordInput").value;
+    var secondInput = document.getElementById("secondWordInput").value;
+
+    var firstInputSplit = firstInput.split("");
+    var secondInputSplit = secondInput.split("");
+    var letter=[];
+    var repetitions=[];
+    var count=0;
+    for(var i = 0; i< firstInputSplit.length;)
+    {
+      count=0;
+      var temp = firstInputSplit[i];
+        for(var j = 0; j<secondInputSplit.length; j++)
+        {
+            if(temp == secondInputSplit[j]) //if common letter found
+            {
+              //console.log("firstInputSplit[i] : count ="+firstInputSplit[i]+":"+count);
+              count = count + 2;
+              console.log("firstInputSplit[i] : count: i ="+firstInputSplit[i]+":"+count+":"+i);
+              letter.push(temp);
+              firstInputSplit.splice(i, 1);//remove letter
+              secondInputSplit.splice(j,1);
+              var n = i;
+              while(n < firstInputSplit.length)//search for the letter again in both the strings
+              {
+                if(firstInputSplit[n] == temp)
+                {
+                  firstInputSplit.splice(n,1);
+                  count++;
+                  console.log("temp : count: i ="+temp+":"+count+":"+i);
+                }
+                else
+                  n++;
+
+                  console.log("inside while, firstInputSplit : secondInputSplit= "+firstInputSplit+":"+secondInputSplit);
+              }
+              n = j;
+              while(n<secondInputSplit.length)//search for the letter again in both the strings
+              {
+                if(secondInputSplit[n] == temp)
+                {
+                  secondInputSplit.splice(n,1);
+                  count++;
+                  console.log("temp : count: i ="+temp+":"+count+":"+i);
+                }
+                else
+                  n++;
+                  console.log("inside while, firstInputSplit : secondInputSplit= "+firstInputSplit+":"+secondInputSplit);
+              }
+            }
+            console.log("inside for j, firstInputSplit : secondInputSplit= "+firstInputSplit+":"+secondInputSplit);
+        }
+        if(count > 0)repetitions.push(count);
+        else i++; //if letter was found, then first array would have been spliced,
+                  //so no need to increment i
+        console.log("inside for i, firstInputSplit : secondInputSplit= "+firstInputSplit+":"+secondInputSplit);
+    }
+
+    for(k = 0; k< letter.length; k++)
+    {
+        var elem = {};
+        elem['letter'] = letter[k];
+        elem['frequency'] = repetitions[k];
+        givenData.push(elem);
+      }
+      drawBar(d3.select("#chartContainer"), givenData);
+}
+
+     var sampleData = [{ frequency: 4, letter: "a"},
+        { frequency: 3, letter: "s"},
+        { frequency: 2, letter: "i"}];
+
+
+
+    </script>
+  </body>
+
+</html>
