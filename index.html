@@ -6,16 +6,18 @@
     <link rel="stylesheet" type="text/css" href="style.css" />
     <script src="https://d3js.org/d3.v3.min.js"></script>
     <script src="barry.js"></script>
+    <script src="http://labratrevenge.com/d3-tip/javascripts/d3.tip.v0.6.3.js"></script>
   </head>
 
   <body>
+  <div class="jumbotron">
     <input id="firstWordInput" placeholder="Javascript" />
     <input id="secondWordInput" placeholder="is ok I guess" />
     <button onclick="generateAndVisualize()">Generate frequency chart!</button>
     <input type="reset" value="Reset" onclick="reloadPage()">
     <div id="chartContainer"></div>
     <script>
-    var givenData = new Array();
+    var givenData = [];
     function reloadPage() {
       location.reload();
     }
@@ -57,22 +59,22 @@
     var letter=[];
     var repetitions=[];
     var count=0;
-    for(var i = 0; i< firstInputSplit.length;)
+    for(var i = 0; i< firstInputSplit.length;)   //Iterating over through firstInputSplit array
     {
       count=0;
-      var temp = firstInputSplit[i];
-        for(var j = 0; j<secondInputSplit.length; j++)
+      var temp = firstInputSplit[i]; //Storing first element of firstInputSplit array in temp
+        for(var j = 0; j<secondInputSplit.length; j++) //Iterating over through secondInputSplit array
         {
-            if(temp == secondInputSplit[j]) //if common letter found
+            if(temp == secondInputSplit[j]) //if common letter found between firstInputSplit and secondInputSplit
             {
-              //console.log("firstInputSplit[i] : count ="+firstInputSplit[i]+":"+count);
               count = count + 2;
               console.log("firstInputSplit[i] : count: i ="+firstInputSplit[i]+":"+count+":"+i);
               letter.push(temp);
-              firstInputSplit.splice(i, 1);//remove letter
-              secondInputSplit.splice(j,1);
+              console.log("temp", temp);
+              firstInputSplit.splice(i, 1); //remove first letter at matching position in firstInputSplit array
+              secondInputSplit.splice(j,1); //remove first letter at matching position in secondInputSplit array
               var n = i;
-              while(n < firstInputSplit.length)//search for the letter again in both the strings
+              while(n < firstInputSplit.length) //search for the letter again in both the strings
               {
                 if(firstInputSplit[n] == temp)
                 {
@@ -86,7 +88,7 @@
                   console.log("inside while, firstInputSplit : secondInputSplit= "+firstInputSplit+":"+secondInputSplit);
               }
               n = j;
-              while(n<secondInputSplit.length)//search for the letter again in both the strings
+              while(n<secondInputSplit.length) //search for the letter again in both the strings
               {
                 if(secondInputSplit[n] == temp)
                 {
@@ -102,11 +104,11 @@
             console.log("inside for j, firstInputSplit : secondInputSplit= "+firstInputSplit+":"+secondInputSplit);
         }
         if(count > 0)repetitions.push(count);
-        else i++; //if letter was found, then first array would have been spliced,
-                  //so no need to increment i
+        else i++; //if letter was found, then first array would have been spliced,so no need to increment i
         console.log("inside for i, firstInputSplit : secondInputSplit= "+firstInputSplit+":"+secondInputSplit);
     }
 
+  //Placing data as json objects
     for(k = 0; k< letter.length; k++)
     {
         var elem = {};
@@ -124,6 +126,7 @@
 
 
     </script>
+    </div>
   </body>
 
 </html>

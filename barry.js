@@ -18,11 +18,22 @@ var drawBar = function(container, data) {
       .scale(y)
       .orient("left");
 
+      var tip = d3.tip()
+      .attr('class', 'd3-tip')
+      .offset([-10, 0])
+      .html(function(d) {
+        return "<strong>Frequency:</strong> <span style='color:red'>" + d.frequency + "</span>";
+      })
+
   var svg = container.append("svg")
       .attr("width", width + margin.left + margin.right)
       .attr("height", height + margin.top + margin.bottom)
     .append("g")
       .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+
+
+  svg.call(tip);
+
 
   x.domain(data.map(function(d) { return d.letter; }));
   y.domain([0, d3.max(data, function(d) { return d.frequency; })]);
@@ -52,5 +63,12 @@ var drawBar = function(container, data) {
       .attr("width", x.rangeBand())
       .attr("y", function(d) { return y(d.frequency); })
       .attr("height", function(d) { return height - y(d.frequency); })
-      .attr("fill",function(d,i){return colors(i)});
+      .attr("fill",function(d,i){return colors(i)})
+      .on('mouseover', tip.show)
+      .on('mouseout', tip.hide);
+
+    function type(d) {
+      d.frequency = +d.frequency;
+      return d;
+    }
 }
