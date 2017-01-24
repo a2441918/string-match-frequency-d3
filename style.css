@@ -13,6 +13,16 @@
   display: none;
 }
 
+.heading {
+  font-family: Lucida Calligraphy;
+  text-align: center;
+  text-shadow:5px 5px 10px red
+}
+
+.jumbotron {
+  padding: 20px;
+}
+
 .bar:hover {
   fill: #42f445 ;
 }

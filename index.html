@@ -3,18 +3,23 @@
 
   <head>
     <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" type="text/css" href="style.css" />
     <script src="https://d3js.org/d3.v3.min.js"></script>
     <script src="barry.js"></script>
     <script src="http://labratrevenge.com/d3-tip/javascripts/d3.tip.v0.6.3.js"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+
   </head>
 
   <body>
+  <h1 class="heading">String Match Frequency Chart</h1>
   <div class="jumbotron">
     <input id="firstWordInput" placeholder="Javascript" />
-    <input id="secondWordInput" placeholder="is ok I guess" />
-    <button onclick="generateAndVisualize()">Generate frequency chart!</button>
-    <input type="reset" value="Reset" onclick="reloadPage()">
+    <input id="secondWordInput" placeholder="is okay I guess" />
+    <button type="button" class="btn btn-primary" onclick="generateAndVisualize()">Generate frequency chart!</button>
+    <input type="reset" class="btn btn-warning" value="Reset" onclick="reloadPage()">
     <div id="chartContainer"></div>
     <script>
     var givenData = [];
